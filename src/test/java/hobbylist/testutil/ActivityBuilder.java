@@ -64,7 +64,7 @@ public class ActivityBuilder {
     }
 
     public Activity build() {
-        return new Activity(name, description, tags);
+        return new Activity(name, description,null, tags);
     }
 
 }
