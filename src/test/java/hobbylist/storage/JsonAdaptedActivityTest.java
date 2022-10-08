@@ -35,14 +35,14 @@ public class JsonAdaptedActivityTest {
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
         JsonAdaptedActivity activity =
-                new JsonAdaptedActivity(INVALID_NAME, VALID_DESCRIPTION, VALID_TAGS);
+                new JsonAdaptedActivity(INVALID_NAME, VALID_DESCRIPTION,null, VALID_TAGS);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, activity::toModelType);
     }
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        JsonAdaptedActivity activity = new JsonAdaptedActivity(null, VALID_DESCRIPTION, VALID_TAGS);
+        JsonAdaptedActivity activity = new JsonAdaptedActivity(null, VALID_DESCRIPTION,null, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, activity::toModelType);
     }
@@ -50,14 +50,14 @@ public class JsonAdaptedActivityTest {
     @Test
     public void toModelType_invalidDescription_throwsIllegalValueException() {
         JsonAdaptedActivity activity =
-                new JsonAdaptedActivity(VALID_NAME, INVALID_DESCRIPTION, VALID_TAGS);
+                new JsonAdaptedActivity(VALID_NAME, INVALID_DESCRIPTION,null, VALID_TAGS);
         String expectedMessage = Description.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, activity::toModelType);
     }
 
     @Test
     public void toModelType_nullDescription_throwsIllegalValueException() {
-        JsonAdaptedActivity activity = new JsonAdaptedActivity(VALID_NAME, null, VALID_TAGS);
+        JsonAdaptedActivity activity = new JsonAdaptedActivity(VALID_NAME, null,null, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, activity::toModelType);
     }
@@ -67,7 +67,7 @@ public class JsonAdaptedActivityTest {
         List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
         invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
         JsonAdaptedActivity activity =
-                new JsonAdaptedActivity(VALID_NAME, VALID_DESCRIPTION, invalidTags);
+                new JsonAdaptedActivity(VALID_NAME, VALID_DESCRIPTION,null, invalidTags);
         Assert.assertThrows(IllegalValueException.class, activity::toModelType);
     }
 
