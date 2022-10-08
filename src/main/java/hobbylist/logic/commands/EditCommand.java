@@ -17,6 +17,7 @@ import hobbylist.model.Model;
 import hobbylist.model.activity.Activity;
 import hobbylist.model.activity.Description;
 import hobbylist.model.activity.Name;
+import hobbylist.model.activity.Remark;
 import hobbylist.model.tag.Tag;
 
 /**
@@ -88,8 +89,8 @@ public class EditCommand extends Command {
         Description updatedDescription = editActivityDescriptor.getDescription()
                 .orElse(activityToEdit.getDescription());
         Set<Tag> updatedTags = editActivityDescriptor.getTags().orElse(activityToEdit.getTags());
-
-        return new Activity(updatedName, updatedDescription, updatedTags);
+        Remark updatedRemark = activityToEdit.getRemark();
+        return new Activity(updatedName, updatedDescription, updatedRemark, updatedTags);
     }
 
     @Override

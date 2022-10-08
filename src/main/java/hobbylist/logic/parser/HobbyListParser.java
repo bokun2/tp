@@ -15,6 +15,7 @@ import hobbylist.logic.commands.ExitCommand;
 import hobbylist.logic.commands.FindCommand;
 import hobbylist.logic.commands.HelpCommand;
 import hobbylist.logic.commands.ListCommand;
+import hobbylist.logic.commands.RemarkCommand;
 import hobbylist.logic.parser.exceptions.ParseException;
 
 /**
@@ -67,7 +68,8 @@ public class HobbyListParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-
+        case RemarkCommand.COMMAND_WORD:
+            return new RemarkCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

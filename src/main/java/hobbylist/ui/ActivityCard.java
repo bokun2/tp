@@ -36,6 +36,8 @@ public class ActivityCard extends UiPart<Region> {
     private Label description;
     @FXML
     private FlowPane tags;
+    @FXML
+    private FlowPane remark;
 
     /**
      * Creates a {@code ActivityCard} with the given {@code Activity} and index to display.
@@ -46,9 +48,13 @@ public class ActivityCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(activity.getName().fullName);
         description.setText(activity.getDescription().value);
+
         activity.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        if(activity.getRemark()!=null) {
+            remark.getChildren().add(new Label(activity.getRemark().value));
+        }
     }
 
     @Override

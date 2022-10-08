@@ -8,6 +8,8 @@ import java.util.Set;
 import hobbylist.commons.util.CollectionUtil;
 import hobbylist.model.tag.Tag;
 
+import static hobbylist.commons.util.CollectionUtil.requireAllNonNull;
+
 /**
  * Represents an Activity in HobbyList.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -20,14 +22,15 @@ public class Activity {
     // Data fields
     private final Description description;
     private final Set<Tag> tags = new HashSet<>();
-
+    private final Remark remark;
     /**
      * Every field must be present and not null.
      */
-    public Activity(Name name, Description description, Set<Tag> tags) {
-        CollectionUtil.requireAllNonNull(name, description, tags);
+    public Activity(Name name, Description description, Remark remark, Set<Tag> tags) {
+       requireAllNonNull(name, description,remark, tags);
         this.name = name;
         this.description = description;
+        this.remark = remark;
         this.tags.addAll(tags);
     }
 
@@ -85,19 +88,24 @@ public class Activity {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(name, description, tags);
     }
-
+    public Remark getRemark() {
+        return remark;
+    }
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append("; Description: ")
-                .append(getDescription());
+                .append(getDescription())
+                        .append("; Remark: ")
+                        .append(getRemark());
 
         Set<Tag> tags = getTags();
         if (!tags.isEmpty()) {
             builder.append("; Tags: ");
             tags.forEach(builder::append);
         }
+
         return builder.toString();
     }
 

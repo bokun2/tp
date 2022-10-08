@@ -1,6 +1,7 @@
 package hobbylist.logic.parser;
 
 import static hobbylist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static hobbylist.logic.parser.CliSyntax.PREFIX_REMARK;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -10,6 +11,7 @@ import hobbylist.logic.parser.exceptions.ParseException;
 import hobbylist.model.activity.Activity;
 import hobbylist.model.activity.Description;
 import hobbylist.model.activity.Name;
+import hobbylist.model.activity.Remark;
 import hobbylist.model.tag.Tag;
 
 /**
@@ -25,9 +27,9 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_NAME,
-                        CliSyntax.PREFIX_DESCRIPTION, CliSyntax.PREFIX_TAG);
+                        CliSyntax.PREFIX_DESCRIPTION, PREFIX_REMARK, CliSyntax.PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, CliSyntax.PREFIX_NAME, CliSyntax.PREFIX_DESCRIPTION)
+        if (!arePrefixesPresent(argMultimap, PREFIX_REMARK, CliSyntax.PREFIX_NAME, CliSyntax.PREFIX_DESCRIPTION)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -35,9 +37,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         Name name = ParserUtil.parseName(argMultimap.getValue(CliSyntax.PREFIX_NAME).get());
         Description description = ParserUtil.parseDescription(argMultimap.getValue(CliSyntax.PREFIX_DESCRIPTION).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(CliSyntax.PREFIX_TAG));
-
-        Activity activity = new Activity(name, description, tagList);
-
+        Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get());
+        Activity activity = new Activity(name, description, remark, tagList);
         return new AddCommand(activity);
     }
 

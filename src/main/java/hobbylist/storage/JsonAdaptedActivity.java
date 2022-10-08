@@ -13,6 +13,7 @@ import hobbylist.commons.exceptions.IllegalValueException;
 import hobbylist.model.activity.Activity;
 import hobbylist.model.activity.Description;
 import hobbylist.model.activity.Name;
+import hobbylist.model.activity.Remark;
 import hobbylist.model.tag.Tag;
 
 /**
@@ -23,6 +24,7 @@ class JsonAdaptedActivity {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Activity's %s field is missing!";
 
     private final String name;
+    private final String remark;
     private final String description;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
@@ -31,12 +33,14 @@ class JsonAdaptedActivity {
      */
     @JsonCreator
     public JsonAdaptedActivity(@JsonProperty("name") String name, @JsonProperty("description") String description,
-                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                               @JsonProperty("remark") String remark, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.description = description;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
+        this.remark = remark;
+
     }
 
     /**
@@ -48,6 +52,9 @@ class JsonAdaptedActivity {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+
+        remark = source.getRemark().value;
+
     }
 
     /**
@@ -73,13 +80,23 @@ class JsonAdaptedActivity {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class
                     .getSimpleName()));
         }
+
         if (!Description.isValidDescription(description)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
         final Description modelDescription = new Description(description);
 
         final Set<Tag> modelTags = new HashSet<>(activityTags);
-        return new Activity(modelName, modelDescription, modelTags);
+
+        if (remark == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Remark.class.getSimpleName()));
+        }
+        if (!Remark.isValidRemark(remark)) {
+            throw new IllegalValueException(Remark.MESSAGE_CONSTRAINTS);
+        }
+        final Remark modelRemark = new Remark(remark);
+        return new Activity(modelName, modelDescription, modelRemark, modelTags);
+
     }
 
 }
