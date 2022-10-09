@@ -52,7 +52,7 @@ public class ActivityCard extends UiPart<Region> {
         activity.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        if(activity.getRemark()!=null) {
+        if (activity.getRemark() != null) {
             remark.getChildren().add(new Label(activity.getRemark().value));
         }
     }

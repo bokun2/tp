@@ -2,7 +2,9 @@ package hobbylist.model.activity;
 
 import static hobbylist.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
-
+/**
+ * A remark
+ */
 public class Remark {
 
     public static final String MESSAGE_CONSTRAINTS = "Remarks can take any values, and it should not be blank";

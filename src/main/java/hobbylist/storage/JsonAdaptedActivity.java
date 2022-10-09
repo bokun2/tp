@@ -32,8 +32,10 @@ class JsonAdaptedActivity {
      * Constructs a {@code JsonAdaptedActivity} with the given activity details.
      */
     @JsonCreator
-    public JsonAdaptedActivity(@JsonProperty("name") String name, @JsonProperty("description") String description,
-                               @JsonProperty("remark") String remark, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedActivity(@JsonProperty("name") String name,
+                               @JsonProperty("description") String description,
+                               @JsonProperty("remark") String remark,
+                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.description = description;
         if (tagged != null) {

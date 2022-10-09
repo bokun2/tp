@@ -1,19 +1,18 @@
 package hobbylist.logic.parser;
 
-import hobbylist.commons.core.index.Index;
-import hobbylist.commons.exceptions.IllegalValueException;
-import hobbylist.logic.commands.FindCommand;
-import hobbylist.logic.commands.RemarkCommand;
-import hobbylist.logic.parser.exceptions.ParseException;
-import hobbylist.model.activity.NameContainsKeywordsPredicate;
-import hobbylist.model.activity.Remark;
-
-import java.util.Arrays;
-
 import static hobbylist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static hobbylist.logic.parser.CliSyntax.PREFIX_REMARK;
 import static java.util.Objects.requireNonNull;
 
+import hobbylist.commons.core.index.Index;
+import hobbylist.commons.exceptions.IllegalValueException;
+import hobbylist.logic.commands.RemarkCommand;
+import hobbylist.logic.parser.exceptions.ParseException;
+import hobbylist.model.activity.Remark;
+
+/**
+ * Parses input arguments and creates a new RemarkCommand object
+ */
 public class RemarkCommandParser implements Parser<RemarkCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the {@code RemarkCommand}

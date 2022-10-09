@@ -48,6 +48,9 @@ public class ParserUtil {
         }
         return new Name(trimmedName);
     }
+    /**
+     * @throws ParseException if the given remark is invalid.
+     */
     public static Remark parseRemark(String remark) throws ParseException {
         requireNonNull(remark);
         String trimmedRemark = remark.trim();

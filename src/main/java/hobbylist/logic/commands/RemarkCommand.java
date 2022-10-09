@@ -1,5 +1,9 @@
 package hobbylist.logic.commands;
 
+import static hobbylist.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.List;
+
 import hobbylist.commons.core.Messages;
 import hobbylist.commons.core.index.Index;
 import hobbylist.logic.commands.exceptions.CommandException;
@@ -7,10 +11,9 @@ import hobbylist.model.Model;
 import hobbylist.model.activity.Activity;
 import hobbylist.model.activity.Remark;
 
-import java.util.List;
-
-import static hobbylist.commons.util.CollectionUtil.requireAllNonNull;
-
+/**
+ * A RemarkCommand object
+ */
 public class RemarkCommand extends Command {
 
     public static final String COMMAND_WORD = "remark";

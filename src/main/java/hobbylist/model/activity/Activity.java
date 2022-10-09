@@ -1,14 +1,13 @@
 package hobbylist.model.activity;
 
+import static hobbylist.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import hobbylist.commons.util.CollectionUtil;
 import hobbylist.model.tag.Tag;
-
-import static hobbylist.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents an Activity in HobbyList.
@@ -27,7 +26,7 @@ public class Activity {
      * Every field must be present and not null.
      */
     public Activity(Name name, Description description, Remark remark, Set<Tag> tags) {
-       requireAllNonNull(name, description,remark, tags);
+        requireAllNonNull(name, description, remark, tags);
         this.name = name;
         this.description = description;
         this.remark = remark;
