@@ -9,7 +9,7 @@ import hobbylist.model.activity.Activity;
 
 /**
  * Adds an activity to the HobbyList.
- */
+ *///
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
