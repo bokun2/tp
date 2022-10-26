@@ -12,9 +12,9 @@ import hobbylist.model.activity.NameOrDescContainsKeywordsPredicate;
  */
 public class FindCommand extends Command {
 
-    public static final String COMMAND_WORD = "find";
+    private static String commandWord = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all activities whose names or descriptions"
+    public static final String MESSAGE_USAGE = commandWord + ": Finds all activities whose names or descriptions"
             + "contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers "
             + "or find all activities on a certain date/in a certain month/year.\n"
@@ -22,10 +22,27 @@ public class FindCommand extends Command {
             + "Example: " + COMMAND_WORD + " sleep exercise code\n"
             + "Example: " + COMMAND_WORD + " 1974-02-02\n";
 
+
     private final NameOrDescContainsKeywordsPredicate predicate;
 
     public FindCommand(NameOrDescContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
+    }
+
+    /**
+     * Sets the command word for the command.
+     * @param word Word to set command to.
+     */
+    public static void setCommandWord(String word) {
+        commandWord = word;
+    }
+
+    /**
+     * Gets the command word for the command.
+     * @return Command word.
+     */
+    public static String getCommandWord() {
+        return commandWord;
     }
 
     @Override
