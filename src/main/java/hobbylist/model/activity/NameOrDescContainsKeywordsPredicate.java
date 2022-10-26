@@ -17,7 +17,6 @@ public class NameOrDescContainsKeywordsPredicate implements Predicate<Activity> 
 
     @Override
     public boolean test(Activity activity) {
-
         for (int i = 0; i < keywords.size(); i++) {
             if (keywords.get(i).split("rate/").length == 2) {
                 String[] t = keywords.get(i).split("rate/");
@@ -27,10 +26,27 @@ public class NameOrDescContainsKeywordsPredicate implements Predicate<Activity> 
                 }
             }
         }
-        return keywords.stream().anyMatch(keyword -> StringUtil.containsWordIgnoreCase(activity.getName().fullName, keyword)
-            || StringUtil.containsWordIgnoreCase(activity.getDescription().value, keyword));
+        if (keywords.stream().anyMatch(keyword -> StringUtil.containsWordIgnoreCase(activity.getName().fullName, keyword)
+            || StringUtil.containsWordIgnoreCase(activity.getDescription().value, keyword))) {
+            return true;
+        }
+        if (keywords.stream().anyMatch(keyword -> StringUtil.containsWordIgnoreCase(activity.getName().fullName, keyword)
+                || StringUtil.containsWordIgnoreCase(activity.getDescription().value, keyword))) {
+            return true;
+        }
+        if (!activity.getDate().isEmpty()) {
+            if (keywords.stream().anyMatch(keyword -> StringUtil.containsWordIgnoreCase(activity.getDate().get(0).getOrginString(), keyword))) {
+                return true;
+            }
+            if (keywords.stream().anyMatch(keyword -> StringUtil.containsWordIgnoreCase(activity.getDate().get(0).yearMonthDescrption(), keyword))) {
+                return true;
+            }
+            if (keywords.stream().anyMatch(keyword -> StringUtil.containsWordIgnoreCase(activity.getDate().get(0).yearDescription(), keyword))) {
+                return true;
+            }
+        }
+        return false;
     }
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
