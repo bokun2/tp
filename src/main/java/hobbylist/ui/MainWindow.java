@@ -35,12 +35,16 @@ public class MainWindow extends UiPart<Stage> {
     private ActivityListPanel activityListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private EditAliasesWindow editAliasesWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
+
+    @FXML
+    private MenuItem editAliasesItem;
 
     @FXML
     private StackPane activityListPanelPlaceholder;
@@ -69,6 +73,8 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+
+        editAliasesWindow = new EditAliasesWindow(logic);
     }
 
     public Stage getPrimaryStage() {
@@ -77,6 +83,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+        setAccelerator(editAliasesItem, KeyCombination.valueOf("F2"));
     }
 
     /**
@@ -160,7 +167,7 @@ public class MainWindow extends UiPart<Stage> {
     public void handleStar() {
         primaryStage.getScene().getStylesheets()
                 .removeAll("view/SkyTheme.css", "view/DarkTheme.css",
-                        "view/LightTheme.css", "view/StarTheme.css");
+                        "view/LightTheme.css", "view/StarTheme.css", "view/TreeTheme.css");
         primaryStage.getScene().getStylesheets().add("view/StarTheme.css");
     }
     /**
@@ -170,7 +177,7 @@ public class MainWindow extends UiPart<Stage> {
     public void handleDark() {
         primaryStage.getScene().getStylesheets()
                 .removeAll("view/StarTheme.css", "view/SkyTheme.css",
-                        "view/LightTheme.css", "view/DarkTheme.css");
+                        "view/LightTheme.css", "view/DarkTheme.css", "view/TreeTheme.css");
         primaryStage.getScene().getStylesheets().add("view/DarkTheme.css");
 
     }
@@ -181,7 +188,7 @@ public class MainWindow extends UiPart<Stage> {
     public void handleSky() {
         primaryStage.getScene().getStylesheets()
                 .removeAll("view/StarTheme.css", "view/DarkTheme.css",
-                        "view/LightTheme.css", "view/SkyTheme.css");
+                        "view/LightTheme.css", "view/SkyTheme.css", "view/TreeTheme.css");
         primaryStage.getScene().getStylesheets().add("view/SkyTheme.css");
 
     }
@@ -192,9 +199,32 @@ public class MainWindow extends UiPart<Stage> {
     public void handleLight() {
         primaryStage.getScene().getStylesheets()
                 .removeAll("view/StarTheme.css", "view/DarkTheme.css",
-                        "view/SkyTheme.css", "view/LightTheme.css");
+                        "view/SkyTheme.css", "view/LightTheme.css", "view/TreeTheme.css");
         primaryStage.getScene().getStylesheets().add("view/LightTheme.css");
 
+    }
+    /**
+     * Change primaryStage to tree theme.
+     */
+    @FXML
+    public void handleTree() {
+        primaryStage.getScene().getStylesheets()
+                .removeAll("view/StarTheme.css", "view/DarkTheme.css",
+                        "view/SkyTheme.css", "view/LightTheme.css", "view/TreeTheme.css");
+        primaryStage.getScene().getStylesheets().add("view/TreeTheme.css");
+
+    }
+
+    /**
+     * Opens the edit aliases window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleEditAliases() {
+        if (!editAliasesWindow.isShowing()) {
+            editAliasesWindow.show();
+        } else {
+            editAliasesWindow.focus();
+        }
     }
 
     void show() {
@@ -211,6 +241,7 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        editAliasesWindow.hide();
         primaryStage.hide();
     }
 
